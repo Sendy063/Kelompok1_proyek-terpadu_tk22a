@@ -15,7 +15,7 @@
 </head>
 
 <body class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-100 font-sans antialiased min-h-screen">
-    <!-- Header Sticky Mirip Shopee -->
+    <!-- Header Sticky -->
     <!-- Alert Success -->
     @if(session('success'))
     <div x-data="{ show: true }" x-init="setTimeout(() => show = false, 3000)" x-show="show" class="fixed top-24 right-5 z-50 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg flex items-center gap-2 transform transition-all duration-300" x-transition:enter="translate-y-[-20px] opacity-0" x-transition:enter-end="translate-y-0 opacity-100" x-transition:leave="translate-y-[-20px] opacity-0">
@@ -24,8 +24,6 @@
     </div>
     @endif
     
-    <!-- Header Modern Simple & Elegant -->
-    <!-- Header Modern Simple & Elegant -->
     <!-- Header Modern Simple & Elegant -->
     <header class="sticky top-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-gray-100 dark:border-gray-800 shadow-sm transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -71,29 +69,7 @@
                     </a>
 
                     <!-- Auth Links -->
-                    <div class="hidden sm:flex items-center gap-3">
-                        @auth
-                            <div class="relative group">
-                                <button class="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-red-600 transition-colors">
-                                    <span>{{ Auth::user()->name }}</span>
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                                </button>
-                                <!-- Dropdown -->
-                                <div class="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-xl shadow-xl py-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform origin-top-right border border-gray-100 dark:border-gray-700 z-50">
-                                    <a href="{{ route('orders.index') }}" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-red-600">Pesanan Saya</a>
-                                    <form method="POST" action="{{ route('logout') }}">
-                                        @csrf
-                                        <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-red-600">
-                                            Keluar
-                                        </button>
-                                    </form>
-                                </div>
-                            </div>
-                        @else
-                            <a href="{{ route('login') }}" class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-red-600 transition-colors">Masuk</a>
-                            <a href="{{ route('register') }}" class="px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 shadow-sm transition-all shadow-red-500/30 hover:shadow-red-500/40">Daftar</a>
-                        @endauth
-                    </div>
+                    <x-auth-navigation />
                     
                     <!-- Mobile Menu Button -->
                     <div class="sm:hidden">
@@ -130,16 +106,17 @@
                     <!-- Slide 1 -->
                     <div class="min-w-full bg-cover bg-center h-64 flex items-center justify-center text-white" style="background-image: url('https://via.placeholder.com/1200x400?text=Promo+Sambal+Pedas');">
                         <div class="text-center">
-                            <h2 class="text-4xl font-bold mb-4">Promo Sambal Pedas!</h2>
-                            <p class="text-lg mb-6">Diskon hingga 50% untuk produk favorit Anda.</p>
+                            <h2 class="text-4xl font-bold mb-4">Promo Spesial ACIMART!</h2>
+                            <p class="text-lg mb-6">Aneka produk aci pilihan, gurih, kenyal, dan berkualitas. 
+    Diskon menarik setiap hari!</p>
                             <button class="bg-red-500 hover:bg-red-600 text-white px-8 py-3 rounded-full font-semibold transition">Belanja Sekarang</button>
                         </div>
                     </div>
                     <!-- Slide 2 -->
                     <div class="min-w-full bg-cover bg-center h-64 flex items-center justify-center text-white" style="background-image: url('https://via.placeholder.com/1200x400?text=Tepung+Tapioka+Murni');">
                         <div class="text-center">
-                            <h2 class="text-4xl font-bold mb-4">Tepung Tapioka Berkualitas!</h2>
-                            <p class="text-lg mb-6">Olahan aci terbaik dari bahan murni.</p>
+                            <h2 class="text-4xl font-bold mb-4">Aci Berkualitas, Rasa Juara</h2>
+                            <p class="text-lg mb-6">Olahan aci terbaik dari bahan terbaik.</p>
                             <button class="bg-red-500 hover:bg-red-600 text-white px-8 py-3 rounded-full font-semibold transition">Lihat Produk</button>
                         </div>
                     </div>

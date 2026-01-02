@@ -23,7 +23,6 @@
                 <a href="/" class="text-gray-700 dark:text-gray-300 hover:text-red-600 transition">Home</a>
                 <span class="text-red-600 font-semibold border-b-2 border-red-600 pb-1">Keranjang</span>
                 <a href="{{ route('orders.index') }}" class="text-gray-700 dark:text-gray-300 hover:text-red-600 transition">Pesanan Saya</a>
-                <x-auth-navigation />
             </nav>
         </div>
     </header>

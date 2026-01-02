@@ -23,7 +23,7 @@
                 <a href="/" class="text-gray-700 dark:text-gray-300 hover:text-red-600 transition">Home</a>
                 <a href="/cart" class="text-gray-700 dark:text-gray-300 hover:text-red-600 transition">Keranjang</a>
                 <span class="text-red-600 font-semibold border-b-2 border-red-600 pb-1">Pesanan Saya</span>
-                <x-auth-navigation />
+                <!-- <x-auth-navigation /> -->
             </nav>
         </div>
     </header>

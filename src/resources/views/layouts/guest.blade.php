@@ -9,11 +9,18 @@
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="font-sans antialiased bg-cover bg-center" style="background-image: url('/image/bg1.png')">
-    <div class="min-h-screen flex items-center justify-center bg-black/40">
+<body class="min-h-screen flex items-center justify-center px-4 bg-cover bg-center" style="background-image: url('/image/bg1.png')">
+    <!-- <div class="min-h-screen flex items-center justify-center bg-black/40">
         <div class="w-full max-w-md bg-[#fdf8f3] rounded-xl shadow-lg p-6">
             {{ $slot }}
         </div>
-    </div>
+    </div> -->
+
+    <div {{ $attributes->merge([
+    'class' => 'relative w-full sm:max-w-md mt-12 px-8 py-10 bg-[#FBF6E8] shadow-xl overflow-visible rounded-2xl'
+]) }}>
+    {{ $slot }}
+</div>
 </body>
 </html>
+

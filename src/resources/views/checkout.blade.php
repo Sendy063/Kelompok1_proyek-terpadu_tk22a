@@ -42,64 +42,87 @@
         </div>
         @endif
 
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <!-- Form Checkout -->
-            <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
-                <h3 class="text-lg font-bold mb-4">Detail Pengiriman & Pembayaran</h3>
-                <form id="checkout-form" action="{{ route('cart.processCheckout') }}" method="POST" class="space-y-4">
-                    @csrf
-                    @auth
-                    <div>
-                        <label class="block text-sm font-medium mb-1">Nama Lengkap</label>
-                        <input type="text" name="customer" value="{{ Auth::user()->name }}" required readonly class="w-full p-3 border rounded bg-gray-100 dark:bg-gray-700">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium mb-1">Email</label>
-                        <input type="email" name="email" value="{{ Auth::user()->email }}" required readonly class="w-full p-3 border rounded bg-gray-100 dark:bg-gray-700">
-                    </div>
-                    @else
-                    <div>
-                        <label class="block text-sm font-medium mb-1">Nama Lengkap</label>
-                        <input type="text" name="customer" required class="w-full p-3 border rounded" placeholder="Masukkan nama lengkap">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium mb-1">Email</label>
-                        <input type="email" name="email" required class="w-full p-3 border rounded" placeholder="Masukkan email">
-                    </div>
-                    @endauth
-                    <div>
-                        <label class="block text-sm font-medium mb-1">Alamat Lengkap</label>
-                        <textarea name="alamat" required class="w-full p-3 border rounded bg-gray-50 dark:bg-gray-700 dark:text-gray-100" rows="3" placeholder="Masukkan alamat lengkap">@auth{{ Auth::user()->address }}@endauth</textarea>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium mb-1">Nomor Telepon</label>
-                        <input type="text" name="telepon" value="@auth{{ Auth::user()->phone }}@endauth" required class="w-full p-3 border rounded bg-gray-50 dark:bg-gray-700 dark:text-gray-100" placeholder="Masukkan nomor telepon">
-                    </div>
-                    <!-- Metode Pembayaran removed as it is handled by Midtrans -->
-                    <input type="hidden" name="payment_method" value="midtrans">
-                    <p class="text-lg font-bold">Total: <span class="text-red-600">Rp {{ number_format($total) }}</span></p>
-                    <button type="submit" class="w-full bg-red-500 hover:bg-red-600 text-white py-3 rounded-lg mt-4">Bayar Sekarang</button>
-                </form>
-            </div>
-        </div>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
 
-            <!-- Ringkasan Pesanan -->
-            <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
-                <h3 class="text-lg font-bold mb-4">Ringkasan Pesanan</h3>
-                @foreach($cartItems as $item)
-                <div class="flex justify-between mb-2">
-                    <span>{{ $item['produk']->nama }} ({{ $item['quantity'] }}x)</span>
-                    <span>Rp {{ number_format($item['subtotal']) }}</span>
-                </div>
-                @endforeach
-                <hr class="my-4">
-                <div class="flex justify-between font-bold">
-                    <span>Total</span>
-                    <span class="text-red-600">Rp {{ number_format($total) }}</span>
-                </div>
+    <!-- Form Checkout (KIRI) -->
+    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
+        <h3 class="text-lg font-bold mb-4">Detail Pengiriman & Pembayaran</h3>
+
+        <form id="checkout-form" action="{{ route('cart.processCheckout') }}" method="POST" class="space-y-4">
+            @csrf
+            @auth
+            <div>
+                <label class="block text-sm font-medium mb-1">Nama Lengkap</label>
+                <input type="text" name="customer" value="{{ Auth::user()->name }}" readonly
+                    class="w-full p-3 border rounded bg-gray-100 dark:bg-gray-700">
             </div>
+
+            <div>
+                <label class="block text-sm font-medium mb-1">Email</label>
+                <input type="email" name="email" value="{{ Auth::user()->email }}" readonly
+                    class="w-full p-3 border rounded bg-gray-100 dark:bg-gray-700">
+            </div>
+            @else
+            <div>
+                <label class="block text-sm font-medium mb-1">Nama Lengkap</label>
+                <input type="text" name="customer" required
+                    class="w-full p-3 border rounded" placeholder="Masukkan nama lengkap">
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium mb-1">Email</label>
+                <input type="email" name="email" required
+                    class="w-full p-3 border rounded" placeholder="Masukkan email">
+            </div>
+            @endauth
+
+            <div>
+                <label class="block text-sm font-medium mb-1">Alamat Lengkap</label>
+                <textarea name="alamat" rows="3" required
+                    class="w-full p-3 border rounded bg-gray-50 dark:bg-gray-700">@auth{{ Auth::user()->address }}@endauth</textarea>
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium mb-1">Nomor Telepon</label>
+                <input type="text" name="telepon" required
+                    value="@auth{{ Auth::user()->phone }}@endauth"
+                    class="w-full p-3 border rounded bg-gray-50 dark:bg-gray-700">
+            </div>
+
+            <input type="hidden" name="payment_method" value="midtrans">
+
+            <p class="text-lg font-bold">
+                Total: <span class="text-red-600">Rp {{ number_format($total) }}</span>
+            </p>
+
+            <button type="submit"
+                class="w-full bg-red-500 hover:bg-red-600 text-white py-3 rounded-lg">
+                Bayar Sekarang
+            </button>
+        </form>
+    </div>
+
+    <!-- Ringkasan Pesanan (KANAN) -->
+    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow h-fit sticky top-6">
+        <h3 class="text-lg font-bold mb-4">Ringkasan Pesanan</h3>
+
+        @foreach($cartItems as $item)
+        <div class="flex justify-between mb-2 text-sm">
+            <span>{{ $item['produk']->nama }} ({{ $item['quantity'] }}x)</span>
+            <span>Rp {{ number_format($item['subtotal']) }}</span>
+        </div>
+        @endforeach
+
+        <hr class="my-4">
+
+        <div class="flex justify-between font-bold text-lg">
+            <span>Total</span>
+            <span class="text-red-600">Rp {{ number_format($total) }}</span>
         </div>
     </div>
+
+</div>
+
     <!-- Midtrans Snap.js -->
     <script type="text/javascript"
             src="https://app.sandbox.midtrans.com/snap/snap.js"
